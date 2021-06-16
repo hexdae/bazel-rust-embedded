@@ -1,0 +1,160 @@
+diff --git a/targets/EFM32PG12B Series.yaml b/targets/EFM32PG12B_Series.yaml
+similarity index 100%
+rename from targets/EFM32PG12B Series.yaml
+rename to targets/EFM32PG12B_Series.yaml
+diff --git a/targets/HF5032x Series.yaml b/targets/HF5032x_Series.yaml
+similarity index 100%
+rename from targets/HF5032x Series.yaml
+rename to targets/HF5032x_Series.yaml
+diff --git a/targets/HT32F0006 Series.yaml b/targets/HT32F0006_Series.yaml
+similarity index 100%
+rename from targets/HT32F0006 Series.yaml
+rename to targets/HT32F0006_Series.yaml
+diff --git a/targets/HT32F0008 Series.yaml b/targets/HT32F0008_Series.yaml
+similarity index 100%
+rename from targets/HT32F0008 Series.yaml
+rename to targets/HT32F0008_Series.yaml
+diff --git a/targets/HT32F123xx Series.yaml b/targets/HT32F123xx_Series.yaml
+similarity index 100%
+rename from targets/HT32F123xx Series.yaml
+rename to targets/HT32F123xx_Series.yaml
+diff --git a/targets/HT32F12xx Series.yaml b/targets/HT32F12xx_Series.yaml
+similarity index 100%
+rename from targets/HT32F12xx Series.yaml
+rename to targets/HT32F12xx_Series.yaml
+diff --git a/targets/HT32F16xx Series.yaml b/targets/HT32F16xx_Series.yaml
+similarity index 100%
+rename from targets/HT32F16xx Series.yaml
+rename to targets/HT32F16xx_Series.yaml
+diff --git a/targets/HT32F17xx Series.yaml b/targets/HT32F17xx_Series.yaml
+similarity index 100%
+rename from targets/HT32F17xx Series.yaml
+rename to targets/HT32F17xx_Series.yaml
+diff --git a/targets/HT32F502xx Series.yaml b/targets/HT32F502xx_Series.yaml
+similarity index 100%
+rename from targets/HT32F502xx Series.yaml
+rename to targets/HT32F502xx_Series.yaml
+diff --git a/targets/HT32F503xx Series.yaml b/targets/HT32F503xx_Series.yaml
+similarity index 100%
+rename from targets/HT32F503xx Series.yaml
+rename to targets/HT32F503xx_Series.yaml
+diff --git a/targets/HT32F521xx Series.yaml b/targets/HT32F521xx_Series.yaml
+similarity index 100%
+rename from targets/HT32F521xx Series.yaml
+rename to targets/HT32F521xx_Series.yaml
+diff --git a/targets/HT32F522xx Series.yaml b/targets/HT32F522xx_Series.yaml
+similarity index 100%
+rename from targets/HT32F522xx Series.yaml
+rename to targets/HT32F522xx_Series.yaml
+diff --git a/targets/HT32F523xx Series.yaml b/targets/HT32F523xx_Series.yaml
+similarity index 100%
+rename from targets/HT32F523xx Series.yaml
+rename to targets/HT32F523xx_Series.yaml
+diff --git a/targets/HT32F573xx Series.yaml b/targets/HT32F573xx_Series.yaml
+similarity index 100%
+rename from targets/HT32F573xx Series.yaml
+rename to targets/HT32F573xx_Series.yaml
+diff --git a/targets/HT32F5826 Series.yaml b/targets/HT32F5826_Series.yaml
+similarity index 100%
+rename from targets/HT32F5826 Series.yaml
+rename to targets/HT32F5826_Series.yaml
+diff --git a/targets/HT32F590xx Series.yaml b/targets/HT32F590xx_Series.yaml
+similarity index 100%
+rename from targets/HT32F590xx Series.yaml
+rename to targets/HT32F590xx_Series.yaml
+diff --git a/targets/HT32F597xx Series.yaml b/targets/HT32F597xx_Series.yaml
+similarity index 100%
+rename from targets/HT32F597xx Series.yaml
+rename to targets/HT32F597xx_Series.yaml
+diff --git a/targets/HT32F61352 Series.yaml b/targets/HT32F61352_Series.yaml
+similarity index 100%
+rename from targets/HT32F61352 Series.yaml
+rename to targets/HT32F61352_Series.yaml
+diff --git a/targets/HT32F652xx Series.yaml b/targets/HT32F652xx_Series.yaml
+similarity index 100%
+rename from targets/HT32F652xx Series.yaml
+rename to targets/HT32F652xx_Series.yaml
+diff --git a/targets/HT50F32002 Series.yaml b/targets/HT50F32002_Series.yaml
+similarity index 100%
+rename from targets/HT50F32002 Series.yaml
+rename to targets/HT50F32002_Series.yaml
+diff --git a/targets/HT50F32003 Series.yaml b/targets/HT50F32003_Series.yaml
+similarity index 100%
+rename from targets/HT50F32003 Series.yaml
+rename to targets/HT50F32003_Series.yaml
+diff --git a/targets/LPC800 Series.yaml b/targets/LPC800_Series.yaml
+similarity index 100%
+rename from targets/LPC800 Series.yaml
+rename to targets/LPC800_Series.yaml
+diff --git a/targets/SAM D Series.yaml b/targets/SAM_D_Series.yaml
+similarity index 100%
+rename from targets/SAM D Series.yaml
+rename to targets/SAM_D_Series.yaml
+diff --git a/targets/STM32F0 Series.yaml b/targets/STM32F0_Series.yaml
+similarity index 100%
+rename from targets/STM32F0 Series.yaml
+rename to targets/STM32F0_Series.yaml
+diff --git a/targets/STM32F1 Series.yaml b/targets/STM32F1_Series.yaml
+similarity index 100%
+rename from targets/STM32F1 Series.yaml
+rename to targets/STM32F1_Series.yaml
+diff --git a/targets/STM32F3 Series.yaml b/targets/STM32F3_Series.yaml
+similarity index 100%
+rename from targets/STM32F3 Series.yaml
+rename to targets/STM32F3_Series.yaml
+diff --git a/targets/STM32F4 Series.yaml b/targets/STM32F4_Series.yaml
+similarity index 100%
+rename from targets/STM32F4 Series.yaml
+rename to targets/STM32F4_Series.yaml
+diff --git a/targets/STM32F7 Series.yaml b/targets/STM32F7_Series.yaml
+similarity index 100%
+rename from targets/STM32F7 Series.yaml
+rename to targets/STM32F7_Series.yaml
+diff --git a/targets/STM32G0 Series.yaml b/targets/STM32G0_Series.yaml
+similarity index 100%
+rename from targets/STM32G0 Series.yaml
+rename to targets/STM32G0_Series.yaml
+diff --git a/targets/STM32G4 Series.yaml b/targets/STM32G4_Series.yaml
+similarity index 100%
+rename from targets/STM32G4 Series.yaml
+rename to targets/STM32G4_Series.yaml
+diff --git a/targets/STM32H7 Series.yaml b/targets/STM32H7_Series.yaml
+similarity index 100%
+rename from targets/STM32H7 Series.yaml
+rename to targets/STM32H7_Series.yaml
+diff --git a/targets/STM32L0 Series.yaml b/targets/STM32L0_Series.yaml
+similarity index 100%
+rename from targets/STM32L0 Series.yaml
+rename to targets/STM32L0_Series.yaml
+diff --git a/targets/STM32L1 Series.yaml b/targets/STM32L1_Series.yaml
+similarity index 100%
+rename from targets/STM32L1 Series.yaml
+rename to targets/STM32L1_Series.yaml
+diff --git a/targets/STM32L4 Series.yaml b/targets/STM32L4_Series.yaml
+similarity index 100%
+rename from targets/STM32L4 Series.yaml
+rename to targets/STM32L4_Series.yaml
+diff --git a/targets/STM32L5 Series.yaml b/targets/STM32L5_Series.yaml
+similarity index 100%
+rename from targets/STM32L5 Series.yaml
+rename to targets/STM32L5_Series.yaml
+diff --git a/targets/STM32WB Series.yaml b/targets/STM32WB_Series.yaml
+similarity index 100%
+rename from targets/STM32WB Series.yaml
+rename to targets/STM32WB_Series.yaml
+diff --git a/targets/STM32WL Series.yaml b/targets/STM32WL_Series.yaml
+similarity index 100%
+rename from targets/STM32WL Series.yaml
+rename to targets/STM32WL_Series.yaml
+diff --git a/targets/nRF51 Series.yaml b/targets/nRF51_Series.yaml
+similarity index 100%
+rename from targets/nRF51 Series.yaml
+rename to targets/nRF51_Series.yaml
+diff --git a/targets/nRF52 Series.yaml b/targets/nRF52_Series.yaml
+similarity index 100%
+rename from targets/nRF52 Series.yaml
+rename to targets/nRF52_Series.yaml
+diff --git a/targets/nRF91 Series.yaml b/targets/nRF91_Series.yaml
+similarity index 100%
+rename from targets/nRF91 Series.yaml
+rename to targets/nRF91_Series.yaml
