@@ -1,0 +1,38 @@
+[package]
+name = "target"
+version = "0.1.0"
+authors = ["Davide Asnaghi <asnaghi@me.com>"]
+edition = "2018"
+
+[lib]
+name = "a"
+
+[dev-dependencies]
+cargo-flash = "0.10.2"
+
+# Above this line should be the contents the Cargo.toml file
+[package.metadata.raze]
+workspace_path = "//crates"
+package_aliases_dir = "crates"
+default_gen_buildrs = true
+targets = [
+    "x86_64-apple-darwin",
+    "x86_64-pc-windows-msvc",
+    "x86_64-unknown-linux-gnu",
+]
+genmode = "Remote"
+
+# Binary tools from crates
+[package.metadata.raze.binary_deps]
+cargo-flash = "0.10.2"
+
+[package.metadata.raze.crates.cargo-flash.'*']
+extra_aliased_targets = [
+    "cargo_bin_cargo_flash"
+]
+
+[package.metadata.raze.crates.jaylink.'*']
+compile_data_attr = "glob([\"**/*.md\"])"
+
+[package.metadata.raze.crates.scroll.'*']
+compile_data_attr = "glob([\"**/*.md\"])"

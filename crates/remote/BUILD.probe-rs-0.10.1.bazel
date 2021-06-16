@@ -1,0 +1,116 @@
+"""
+@generated
+cargo-raze crate build file.
+
+DO NOT EDIT! Replaced on runs of cargo-raze
+"""
+
+# buildifier: disable=load
+load("@bazel_skylib//lib:selects.bzl", "selects")
+
+# buildifier: disable=load
+load(
+    "@rules_rust//rust:rust.bzl",
+    "rust_binary",
+    "rust_library",
+    "rust_test",
+)
+
+package(default_visibility = [
+    # Public for visibility by "@raze__crate__version//" targets.
+    #
+    # Prefer access through "//crates", which limits external
+    # visibility to explicit Cargo.toml dependencies.
+    "//visibility:public",
+])
+
+licenses([
+    "notice",  # MIT from expression "MIT OR Apache-2.0"
+])
+
+# Generated Targets
+# buildifier: disable=out-of-order-load
+# buildifier: disable=load-on-top
+load(
+    "@rules_rust//cargo:cargo_build_script.bzl",
+    "cargo_build_script",
+)
+
+cargo_build_script(
+    name = "probe_rs_build_script",
+    srcs = glob(["**/*.rs"]),
+    build_script_env = {
+    },
+    crate_features = [
+        "builtin-targets",
+        "default",
+    ],
+    crate_root = "build.rs",
+    data = glob(["**"]),
+    edition = "2018",
+    rustc_flags = [
+        "--cap-lints=allow",
+    ],
+    tags = [
+        "cargo-raze",
+        "manual",
+    ],
+    version = "0.10.1",
+    visibility = ["//visibility:private"],
+    deps = [
+        "@raze__probe_rs_t2rust__0_7_0//:probe_rs_t2rust",
+    ],
+)
+
+# Unsupported target "ram_download" with type "example" omitted
+
+# Unsupported target "tcp_itm" with type "example" omitted
+
+rust_library(
+    name = "probe_rs",
+    srcs = glob(["**/*.rs"]),
+    crate_features = [
+        "builtin-targets",
+        "default",
+    ],
+    crate_root = "src/lib.rs",
+    crate_type = "lib",
+    data = [],
+    edition = "2018",
+    proc_macro_deps = [
+        "@raze__enum_primitive_derive__0_2_1//:enum_primitive_derive",
+    ],
+    rustc_flags = [
+        "--cap-lints=allow",
+    ],
+    tags = [
+        "cargo-raze",
+        "manual",
+    ],
+    version = "0.10.1",
+    # buildifier: leave-alone
+    deps = [
+        ":probe_rs_build_script",
+        "@raze__anyhow__1_0_41//:anyhow",
+        "@raze__base64__0_13_0//:base64",
+        "@raze__bitfield__0_13_2//:bitfield",
+        "@raze__gimli__0_23_0//:gimli",
+        "@raze__goblin__0_2_3//:goblin",
+        "@raze__hidapi__1_2_6//:hidapi",
+        "@raze__ihex__3_0_0//:ihex",
+        "@raze__jaylink__0_1_5//:jaylink",
+        "@raze__jep106__0_2_5//:jep106",
+        "@raze__lazy_static__1_4_0//:lazy_static",
+        "@raze__log__0_4_14//:log",
+        "@raze__num_traits__0_2_14//:num_traits",
+        "@raze__object__0_22_0//:object",
+        "@raze__rusb__0_6_5//:rusb",
+        "@raze__scroll__0_10_2//:scroll",
+        "@raze__serde__1_0_126//:serde",
+        "@raze__serde_yaml__0_8_17//:serde_yaml",
+        "@raze__svg__0_8_2//:svg",
+        "@raze__thiserror__1_0_25//:thiserror",
+    ],
+)
+
+# Unsupported target "source_location" with type "test" omitted
