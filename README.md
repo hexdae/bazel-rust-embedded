@@ -66,4 +66,28 @@ You can use cargo flash to load binaries or elf files to any target that uses a 
 
 You can invoke the tool directly from the command line with `bazel run @rust_embedded//:cargo-flash -- --chip CHIP --elf ELF` or use the target in your bazel rules.
 
+You can also use the built in rules, as the following example shows
+
+'''python
+# package/BUILD
+
+load("@rust_embedded//:rules.bzl", "cargo_flash")
+
+cargo_flash(
+    name = "flash",
+    file = "<your/bazel/elf>",
+    chip = "STM32F103C8",
+)
+
+cargo_flash(
+    name = "flash_bin",
+    file = "<your/bazel/elf>",
+    chip = "STM32F103C8",
+    bin = True,
+)
+
+'''
+
+Then `bazel run //package:flash` will load the file to the rarget
+
 
