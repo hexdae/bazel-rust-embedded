@@ -26,7 +26,7 @@ rust_embedded_repositories()
 
 load("@rust_embedded//:deps.bzl", "rust_embedded_deps)
 
-rust_embedded_dependencies()
+rust_embedded_deps()
 
 ```
 
