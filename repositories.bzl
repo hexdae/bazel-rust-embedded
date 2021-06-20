@@ -2,9 +2,9 @@
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
-load("@rust_embedded_tools//crates:crates.bzl", "raze_fetch_remote_crates")
+load("@rust_embedded//crates:crates.bzl", "raze_fetch_remote_crates")
 
-def rust_embedded_tools_repositories():
+def rust_embedded_repositories():
     """Creates repository definitions for third party dependencies"""
 
     maybe(

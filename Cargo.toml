@@ -32,7 +32,7 @@ extra_aliased_targets = [
 ]
 
 [package.metadata.raze.crates.probe-rs.'0.10.1']
-patches = ["@rust_embedded_tools//crates/custom:probe-rs.patch"]
+patches = ["@rust_embedded//crates/custom:probe-rs.patch"]
 patch_tool = "git apply"
 
 [package.metadata.raze.crates.jaylink.'*']

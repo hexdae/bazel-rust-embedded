@@ -11,22 +11,22 @@ To import the `Bazel Rust Embedded Tools` repo in your `WORKSPACE` make just add
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
-    name = "rust_embedded_tools",
+    name = "rust_embedded",
     sha256 = "<sha>",
-    strip_prefix = "rust_embedded_tools-<commit>",
+    strip_prefix = "rust_embedded-<commit>",
     urls = [
         # Master branch as of 2021-04-23
-        "https://github.com/d-asnaghi/rust_embedded_tools/archive/<commit>.tar.gz",
+        "https://github.com/d-asnaghi/rust_embedded/archive/<commit>.tar.gz",
     ],
 )
 
-load("@rust_embedded_tools//:repositories.bzl", "rust_embedded_tools_repositories")
+load("@rust_embedded//:repositories.bzl", "rust_embedded_repositories")
 
-rust_embedded_tools_repositories()
+rust_embedded_repositories()
 
-load("@rust_embedded_tools//:deps.bzl", "rust_embedded_tools_deps)
+load("@rust_embedded//:deps.bzl", "rust_embedded_deps)
 
-rust_embedded_tools_dependencies()
+rust_embedded_dependencies()
 
 ```
 
