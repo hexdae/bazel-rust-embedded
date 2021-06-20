@@ -31,6 +31,10 @@ extra_aliased_targets = [
     "cargo_bin_cargo_flash"
 ]
 
+[package.metadata.raze.crates.probe-rs.'0.10.1']
+patches = ["@rust_embedded_tools//crates/custom:probe-rs.patch"]
+patch_tool = "git apply"
+
 [package.metadata.raze.crates.jaylink.'*']
 compile_data_attr = "glob([\"**/*.md\"])"
 

@@ -628,10 +628,12 @@ def raze_fetch_remote_crates():
         type = "tar.gz",
         sha256 = "3f86f2646785d3d52887b1212ce05e5b58be9a02a5fd8690c1a24042899c30c0",
         strip_prefix = "probe-rs-0.10.1",
+        patches = [
+            "@rust_embedded_tools//crates/custom:probe-rs.patch",
+        ],
+        patch_tool = "git apply",
         build_file = Label("//crates/remote:BUILD.probe-rs-0.10.1.bazel"),
-        patches = [Label("//crates/custom:probe-rs.patch")],
-        patch_tool = "git apply", # TODO: needed due to spaces in file names.
-     )
+    )
 
     maybe(
         http_archive,

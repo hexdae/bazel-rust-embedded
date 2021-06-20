@@ -1,19 +1,6 @@
+workspace(name = "rust_embedded_tools")
+
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
-http_archive(
-    name = "cargo_raze",
-    sha256 = "c664e258ea79e7e4ec2f2b57bca8b1c37f11c8d5748e02b8224810da969eb681",
-    strip_prefix = "cargo-raze-0.11.0",
-    url = "https://github.com/google/cargo-raze/archive/v0.11.0.tar.gz",
-)
-
-load("@cargo_raze//:repositories.bzl", "cargo_raze_repositories")
-
-cargo_raze_repositories()
-
-load("@cargo_raze//:transitive_deps.bzl", "cargo_raze_transitive_deps")
-
-cargo_raze_transitive_deps()
 
 http_archive(
     name = "rules_rust",
@@ -29,6 +16,10 @@ load("@rules_rust//rust:repositories.bzl", "rust_repositories")
 
 rust_repositories()
 
-load("//crates:crates.bzl", "raze_fetch_remote_crates")
+load("@rust_embedded_tools//:repositories.bzl", "rust_embedded_tools_repositories")
 
-raze_fetch_remote_crates()
+rust_embedded_tools_repositories()
+
+load("@rust_embedded_tools//:dependencies.bzl", "rust_embedded_tools_dependencies")
+
+rust_embedded_tools_dependencies()
