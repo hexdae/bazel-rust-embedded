@@ -70,20 +70,30 @@ You can also use the built in rules, as the following example shows
 
 load("@rust_embedded//:rules.bzl", "cargo_flash")
 
+cc_binary(
+    name = "firmware_elf",
+    ...
+)
+
+cc_binary(
+    name = "firmware_bin",
+    ...
+)
+
 cargo_flash(
-    name = "flash",
-    file = "<your/bazel/elf>",
+    name = "flash_elf",
+    file = ":firmware_elf",
     chip = "STM32F103C8",
 )
 
 cargo_flash(
     name = "flash_bin",
-    file = "<your/bazel/elf>",
+    file = ":firmware_bin",
     chip = "STM32F103C8",
     bin = True,
 )
 ```
 
-Then `bazel run //package:flash` will load the file to the target
+Then `bazel run //package:flash_elf` and `bazel run //package:flash_bin` will load the file to the target
 
 
