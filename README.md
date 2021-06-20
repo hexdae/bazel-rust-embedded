@@ -38,27 +38,24 @@ To import the `Bazel Rust Embedded` repo in your `WORKSPACE` make just add the f
 
 ```python
 
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
 http_archive(
     name = "rust_embedded",
-    sha256 = "<sha>",
-    strip_prefix = "rust_embedded-<commit>",
-    urls = [
-        # Master branch as of 2021-04-23
-        "https://github.com/d-asnaghi/rust_embedded/archive/<commit>.tar.gz",
-    ],
+    sha256 = "<sha256",
+    strip_prefix = "bazel-rust-embedded-<version>",
+    url = "https://github.com/d-asnaghi/bazel-rust-embedded/archive/refs/tags/<version>.tar.gz",
 )
 
 load("@rust_embedded//:repositories.bzl", "rust_embedded_repositories")
 
 rust_embedded_repositories()
 
-load("@rust_embedded//:deps.bzl", "rust_embedded_deps)
+load("@rust_embedded//:deps.bzl", "rust_embedded_deps")
 
 rust_embedded_deps()
 
 ```
+
+Head to the [Releases](https://github.com/d-asnaghi/bazel-rust-embedded/releases) page for more specific `WORKSPACE` settings
 
 ## [Cargo Flash](https://crates.io/crates/cargo-flash)
 
