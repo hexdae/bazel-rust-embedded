@@ -25,7 +25,7 @@ package(default_visibility = [
 ])
 
 licenses([
-    "unencumbered",  # Unlicense from expression "Unlicense OR MIT"
+    "notice",  # MIT from expression "MIT OR Apache-2.0"
 ])
 
 # Generated Targets
@@ -37,14 +37,18 @@ load(
 )
 
 cargo_build_script(
-    name = "memchr_build_script",
+    name = "lexical_core_build_script",
     srcs = glob(["**/*.rs"]),
     build_script_env = {
     },
     crate_features = [
+        "arrayvec",
+        "correct",
         "default",
+        "ryu",
+        "static_assertions",
         "std",
-        "use_std",
+        "table",
     ],
     crate_root = "build.rs",
     data = glob(["**"]),
@@ -56,19 +60,23 @@ cargo_build_script(
         "cargo-raze",
         "manual",
     ],
-    version = "2.4.0",
+    version = "0.7.6",
     visibility = ["//visibility:private"],
     deps = [
     ],
 )
 
 rust_library(
-    name = "memchr",
+    name = "lexical_core",
     srcs = glob(["**/*.rs"]),
     crate_features = [
+        "arrayvec",
+        "correct",
         "default",
+        "ryu",
+        "static_assertions",
         "std",
-        "use_std",
+        "table",
     ],
     crate_root = "src/lib.rs",
     crate_type = "lib",
@@ -81,9 +89,14 @@ rust_library(
         "cargo-raze",
         "manual",
     ],
-    version = "2.4.0",
+    version = "0.7.6",
     # buildifier: leave-alone
     deps = [
-        ":memchr_build_script",
+        ":lexical_core_build_script",
+        "@raze__arrayvec__0_5_2//:arrayvec",
+        "@raze__bitflags__1_2_1//:bitflags",
+        "@raze__cfg_if__1_0_0//:cfg_if",
+        "@raze__ryu__1_0_5//:ryu",
+        "@raze__static_assertions__1_1_0//:static_assertions",
     ],
 )

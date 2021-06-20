@@ -25,39 +25,34 @@ package(default_visibility = [
 ])
 
 licenses([
-    "notice",  # MIT from expression "MIT OR Apache-2.0"
+    "notice",  # Apache-2.0 from expression "Apache-2.0 OR MIT"
 ])
 
 # Generated Targets
 
-# Unsupported target "bench" with type "bench" omitted
+# Unsupported target "build-script-build" with type "custom-build" omitted
 
 rust_library(
-    name = "regex_syntax",
+    name = "value_bag",
     srcs = glob(["**/*.rs"]),
     crate_features = [
-        "default",
-        "unicode",
-        "unicode-age",
-        "unicode-bool",
-        "unicode-case",
-        "unicode-gencat",
-        "unicode-perl",
-        "unicode-script",
-        "unicode-segment",
     ],
     crate_root = "src/lib.rs",
     crate_type = "lib",
     data = [],
     edition = "2018",
+    proc_macro_deps = [
+        "@raze__ctor__0_1_20//:ctor",
+    ],
     rustc_flags = [
         "--cap-lints=allow",
+        "--cfg=value_bag_capture_ctor",
     ],
     tags = [
         "cargo-raze",
         "manual",
     ],
-    version = "0.6.25",
+    version = "1.0.0-alpha.7",
     # buildifier: leave-alone
     deps = [
     ],

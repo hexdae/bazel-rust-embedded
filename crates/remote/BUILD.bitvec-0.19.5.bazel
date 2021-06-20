@@ -25,26 +25,23 @@ package(default_visibility = [
 ])
 
 licenses([
-    "notice",  # MIT from expression "MIT OR Apache-2.0"
+    "notice",  # MIT from expression "MIT"
 ])
 
 # Generated Targets
 
-# Unsupported target "bench" with type "bench" omitted
+# Unsupported target "macros" with type "bench" omitted
+
+# Unsupported target "memcpy" with type "bench" omitted
+
+# Unsupported target "slice" with type "bench" omitted
 
 rust_library(
-    name = "regex_syntax",
+    name = "bitvec",
     srcs = glob(["**/*.rs"]),
     crate_features = [
-        "default",
-        "unicode",
-        "unicode-age",
-        "unicode-bool",
-        "unicode-case",
-        "unicode-gencat",
-        "unicode-perl",
-        "unicode-script",
-        "unicode-segment",
+        "alloc",
+        "std",
     ],
     crate_root = "src/lib.rs",
     crate_type = "lib",
@@ -57,8 +54,12 @@ rust_library(
         "cargo-raze",
         "manual",
     ],
-    version = "0.6.25",
+    version = "0.19.5",
     # buildifier: leave-alone
     deps = [
+        "@raze__funty__1_1_0//:funty",
+        "@raze__radium__0_5_3//:radium",
+        "@raze__tap__1_0_1//:tap",
+        "@raze__wyz__0_2_0//:wyz",
     ],
 )

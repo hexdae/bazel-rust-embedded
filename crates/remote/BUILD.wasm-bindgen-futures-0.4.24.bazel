@@ -30,21 +30,10 @@ licenses([
 
 # Generated Targets
 
-# Unsupported target "bench" with type "bench" omitted
-
 rust_library(
-    name = "regex_syntax",
+    name = "wasm_bindgen_futures",
     srcs = glob(["**/*.rs"]),
     crate_features = [
-        "default",
-        "unicode",
-        "unicode-age",
-        "unicode-bool",
-        "unicode-case",
-        "unicode-gencat",
-        "unicode-perl",
-        "unicode-script",
-        "unicode-segment",
     ],
     crate_root = "src/lib.rs",
     crate_type = "lib",
@@ -57,8 +46,13 @@ rust_library(
         "cargo-raze",
         "manual",
     ],
-    version = "0.6.25",
+    version = "0.4.24",
     # buildifier: leave-alone
     deps = [
+        "@raze__cfg_if__1_0_0//:cfg_if",
+        "@raze__js_sys__0_3_51//:js_sys",
+        "@raze__wasm_bindgen__0_2_74//:wasm_bindgen",
     ],
 )
+
+# Unsupported target "tests" with type "test" omitted

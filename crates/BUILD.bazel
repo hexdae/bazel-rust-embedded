@@ -15,6 +15,17 @@ licenses([
 alias(
     # Extra aliased target, from raze configuration
     # N.B.: The exact form of this is subject to change.
+    name = "cargo_bin_cargo_embed",
+    actual = "@raze__cargo_embed__0_10_1//:cargo_bin_cargo_embed",
+    tags = [
+        "cargo-raze",
+        "manual",
+    ],
+)
+
+alias(
+    # Extra aliased target, from raze configuration
+    # N.B.: The exact form of this is subject to change.
     name = "cargo_bin_cargo_flash",
     actual = "@raze__cargo_flash__0_10_2//:cargo_bin_cargo_flash",
     tags = [

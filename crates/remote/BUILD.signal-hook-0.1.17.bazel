@@ -25,26 +25,20 @@ package(default_visibility = [
 ])
 
 licenses([
-    "notice",  # MIT from expression "MIT OR Apache-2.0"
+    "notice",  # Apache-2.0 from expression "Apache-2.0 OR MIT"
 ])
 
 # Generated Targets
 
-# Unsupported target "bench" with type "bench" omitted
-
 rust_library(
-    name = "regex_syntax",
+    name = "signal_hook",
     srcs = glob(["**/*.rs"]),
+    aliases = {
+        "@raze__mio__0_7_13//:mio": "mio_0_7",
+    },
     crate_features = [
-        "default",
-        "unicode",
-        "unicode-age",
-        "unicode-bool",
-        "unicode-case",
-        "unicode-gencat",
-        "unicode-perl",
-        "unicode-script",
-        "unicode-segment",
+        "mio-0_7-support",
+        "mio_0_7",
     ],
     crate_root = "src/lib.rs",
     crate_type = "lib",
@@ -57,8 +51,23 @@ rust_library(
         "cargo-raze",
         "manual",
     ],
-    version = "0.6.25",
+    version = "0.1.17",
     # buildifier: leave-alone
     deps = [
+        "@raze__libc__0_2_97//:libc",
+        "@raze__mio__0_7_13//:mio",
+        "@raze__signal_hook_registry__1_4_0//:signal_hook_registry",
     ],
 )
+
+# Unsupported target "cleanup" with type "test" omitted
+
+# Unsupported target "cleanup_indirect" with type "test" omitted
+
+# Unsupported target "default" with type "test" omitted
+
+# Unsupported target "iterator" with type "test" omitted
+
+# Unsupported target "tokio" with type "test" omitted
+
+# Unsupported target "version" with type "test" omitted

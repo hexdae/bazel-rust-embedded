@@ -5,10 +5,11 @@ authors = ["Davide Asnaghi <asnaghi@me.com>"]
 edition = "2018"
 
 [lib]
-name = "a"
+name = "fake_lib"
 
 [dev-dependencies]
 cargo-flash = "0.10.2"
+cargo-embed = "0.10.1"
 
 # Above this line should be the contents the Cargo.toml file
 [package.metadata.raze]
@@ -25,10 +26,17 @@ genmode = "Remote"
 # Binary tools from crates
 [package.metadata.raze.binary_deps]
 cargo-flash = "0.10.2"
+cargo-embed = "0.10.1"
 
 [package.metadata.raze.crates.cargo-flash.'*']
 extra_aliased_targets = [
     "cargo_bin_cargo_flash"
+]
+
+[package.metadata.raze.crates.cargo-embed.'*']
+data_attr = "[\"src/config/default.toml\"]"
+extra_aliased_targets = [
+    "cargo_bin_cargo_embed"
 ]
 
 [package.metadata.raze.crates.probe-rs.'0.10.1']
@@ -40,3 +48,9 @@ compile_data_attr = "glob([\"**/*.md\"])"
 
 [package.metadata.raze.crates.scroll.'*']
 compile_data_attr = "glob([\"**/*.md\"])"
+
+[package.metadata.raze.crates.value-bag.'1.0.0-alpha.7']
+gen_buildrs = false
+additional_flags = [
+    "--cfg=value_bag_capture_ctor"
+]

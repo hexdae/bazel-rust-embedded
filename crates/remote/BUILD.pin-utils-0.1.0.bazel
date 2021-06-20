@@ -30,21 +30,10 @@ licenses([
 
 # Generated Targets
 
-# Unsupported target "bench" with type "bench" omitted
-
 rust_library(
-    name = "regex_syntax",
+    name = "pin_utils",
     srcs = glob(["**/*.rs"]),
     crate_features = [
-        "default",
-        "unicode",
-        "unicode-age",
-        "unicode-bool",
-        "unicode-case",
-        "unicode-gencat",
-        "unicode-perl",
-        "unicode-script",
-        "unicode-segment",
     ],
     crate_root = "src/lib.rs",
     crate_type = "lib",
@@ -57,8 +46,12 @@ rust_library(
         "cargo-raze",
         "manual",
     ],
-    version = "0.6.25",
+    version = "0.1.0",
     # buildifier: leave-alone
     deps = [
     ],
 )
+
+# Unsupported target "projection" with type "test" omitted
+
+# Unsupported target "stack_pin" with type "test" omitted

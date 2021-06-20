@@ -30,21 +30,12 @@ licenses([
 
 # Generated Targets
 
-# Unsupported target "bench" with type "bench" omitted
+# Unsupported target "main" with type "example" omitted
 
 rust_library(
-    name = "regex_syntax",
+    name = "kv_log_macro",
     srcs = glob(["**/*.rs"]),
     crate_features = [
-        "default",
-        "unicode",
-        "unicode-age",
-        "unicode-bool",
-        "unicode-case",
-        "unicode-gencat",
-        "unicode-perl",
-        "unicode-script",
-        "unicode-segment",
     ],
     crate_root = "src/lib.rs",
     crate_type = "lib",
@@ -57,8 +48,11 @@ rust_library(
         "cargo-raze",
         "manual",
     ],
-    version = "0.6.25",
+    version = "1.0.7",
     # buildifier: leave-alone
     deps = [
+        "@raze__log__0_4_14//:log",
     ],
 )
+
+# Unsupported target "test" with type "test" omitted
