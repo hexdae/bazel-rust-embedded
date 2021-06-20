@@ -268,6 +268,13 @@ def raze_fetch_remote_crates():
         type = "tar.gz",
         sha256 = "5f51a03b2a8636d96ffd40620b3f07a9693321f9191a67977602aa40a70c8011",
         strip_prefix = "cargo-embed-0.10.1",
+        patches = [
+            "@rust_embedded//crates/custom:cargo-embed.patch",
+        ],
+        patch_args = [
+            "apply",
+        ],
+        patch_tool = "git",
         build_file = Label("//crates/remote:BUILD.cargo-embed-0.10.1.bazel"),
     )
 

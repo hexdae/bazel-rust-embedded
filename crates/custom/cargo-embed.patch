@@ -1,0 +1,77 @@
+diff --git a/src/config/mod.rs b/src/config/mod.rs
+index 43e0cd0..bf6685c 100644
+--- a/src/config/mod.rs
++++ b/src/config/mod.rs
+@@ -83,7 +83,7 @@ pub struct Gdb {
+ }
+
+ impl Configs {
+-    pub fn new(name: impl AsRef<str>) -> anyhow::Result<Config> {
++    pub fn new(name: impl AsRef<str>, custom_config_path: Option<impl AsRef<str>>) -> anyhow::Result<Config> {
+         let mut s = config::Config::new();
+
+         // Start off by merging in the default configuration file.
+@@ -114,6 +114,12 @@ impl Configs {
+                 .with_context(|| format!("Failed to merge config file '{}", file))?;
+         }
+
++        if let Some(custom_config) = custom_config_path {
++            let file = custom_config.as_ref();
++            s.merge(config::File::with_name(file).required(false))
++                .with_context(|| format!("Failed to merge config file '{}", file))?;
++        }
++
+         let map: HashMap<String, serde_json::value::Value> = s.try_into()?;
+
+         let config = match map.get(name.as_ref()) {
+@@ -171,6 +177,6 @@ mod test {
+     fn default_config() {
+         // Ensure the default config can be parsed.
+
+-        let _config = Configs::new("default").unwrap();
++        let _config = Configs::new("default", None).unwrap();
+     }
+ }
+diff --git a/src/main.rs b/src/main.rs
+index 6d5a8e5..453270f 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -48,6 +48,8 @@ struct Opt {
+     pub version: bool,
+     #[structopt(name = "config")]
+     config: Option<String>,
++    #[structopt(name = "custom-config", long = "custom-config")]
++    custom_config: Option<String>,
+     #[structopt(name = "chip", long = "chip")]
+     chip: Option<String>,
+     #[structopt(
+@@ -74,6 +76,8 @@ struct Opt {
+     target: Option<String>,
+     #[structopt(name = "PATH", long = "manifest-path", parse(from_os_str))]
+     manifest_path: Option<PathBuf>,
++    #[structopt(name = "artifact", long = "artifact-path")]
++    artifact_path: Option<PathBuf>,
+     #[structopt(long)]
+     no_default_features: bool,
+     #[structopt(long)]
+@@ -166,7 +170,7 @@ fn main_try() -> Result<()> {
+
+     // Get the config.
+     let config_name = opt.config.as_deref().unwrap_or_else(|| "default");
+-    let config = config::Configs::new(config_name)
++    let config = config::Configs::new(config_name, opt.custom_config)
+         .with_context(|| format!("The config '{}' could not be loaded.", config_name))?;
+
+     logging::init(Some(config.general.log_level));
+@@ -200,7 +204,10 @@ fn main_try() -> Result<()> {
+         args.remove(index);
+     }
+
+-    let path = build_artifact(&work_dir, &args)?;
++    let path = opt
++        .artifact_path
++        .ok_or_else(|| build_artifact(&work_dir, &args))
++        .unwrap();
+
+     // Get the binary name (without extension) from the build artifact path
+     let name = path.file_stem().and_then(|f| f.to_str()).ok_or_else(|| {

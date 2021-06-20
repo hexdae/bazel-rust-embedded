@@ -38,6 +38,9 @@ data_attr = "[\"src/config/default.toml\"]"
 extra_aliased_targets = [
     "cargo_bin_cargo_embed"
 ]
+patches = ["@rust_embedded//crates/custom:cargo-embed.patch"]
+patch_tool = "git"
+patch_args = ["apply"]
 
 [package.metadata.raze.crates.probe-rs.'0.10.1']
 patches = ["@rust_embedded//crates/custom:probe-rs.patch"]
