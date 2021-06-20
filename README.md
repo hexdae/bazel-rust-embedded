@@ -34,7 +34,7 @@ If this project was useful to you, give it a ⭐️ and I'll keep improving it!
 
 ## Install in your workspace
 
-To import the `Bazel Rust Embedded Tools` repo in your `WORKSPACE` make just add the following lines:
+To import the `Bazel Rust Embedded` repo in your `WORKSPACE` make just add the following lines:
 
 ```python
 
@@ -59,5 +59,11 @@ load("@rust_embedded//:deps.bzl", "rust_embedded_deps)
 rust_embedded_deps()
 
 ```
+
+## [Cargo Flash](https://crates.io/crates/cargo-flash)
+
+You can use cargo flash to load binaries or elf files to any target that uses a supported probe (JLink, STLink, Etc).
+
+You can invoke the tool directly from the command line with `bazel run @rust_embedded//:cargo-flash -- --chip CHIP --elf ELF` or use the target in your bazel rules.
 
 
