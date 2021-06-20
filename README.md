@@ -65,7 +65,7 @@ You can invoke the tool directly from the command line with `bazel run @rust_emb
 
 You can also use the built in rules, as the following example shows
 
-'''python
+```python
 # package/BUILD
 
 load("@rust_embedded//:rules.bzl", "cargo_flash")
@@ -82,9 +82,8 @@ cargo_flash(
     chip = "STM32F103C8",
     bin = True,
 )
+```
 
-'''
-
-Then `bazel run //package:flash` will load the file to the rarget
+Then `bazel run //package:flash` will load the file to the target
 
 
