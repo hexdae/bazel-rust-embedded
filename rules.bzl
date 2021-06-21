@@ -28,3 +28,34 @@ def cargo_flash(name, file, chip, bin=False):
         tools = [tool],
         cmd = cmd,
     )
+
+
+
+def cargo_embed(name, file, chip, custom_config=None):
+    """Use cargo-embed with a custom config
+
+        You can flash the probe, start a gdb server and
+        more using the cargo-embed binary
+
+    Args:
+        name: the target name as a string
+        file: the label to the elf file
+        chip: string, the target chip
+        custom_config: the label of a custom config file
+    """
+    srcs = [file]
+    tool = "@rust_embedded//:cargo-embed"
+    cmd = "$(locations {}) --chip {} --artifact-path $(locations {})".format(tool, chip, file)
+
+    if custom_config:
+        srcs.append(custom_config)
+        cmd += " --custom-config $(locations {})".format(custom_config)
+
+    native.genrule(
+        name = name,
+        srcs = srcs,
+        outs = [name + ".sh"],
+        executable = True,
+        tools = [tool],
+        cmd = """echo "{}" > $@""".format(cmd),
+    )
