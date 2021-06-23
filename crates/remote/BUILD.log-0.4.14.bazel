@@ -42,7 +42,10 @@ cargo_build_script(
     build_script_env = {
     },
     crate_features = [
+        "kv_unstable",
+        "serde",
         "std",
+        "value-bag",
     ],
     crate_root = "build.rs",
     data = glob(["**"]),
@@ -66,7 +69,10 @@ rust_library(
     name = "log",
     srcs = glob(["**/*.rs"]),
     crate_features = [
+        "kv_unstable",
+        "serde",
         "std",
+        "value-bag",
     ],
     crate_root = "src/lib.rs",
     crate_type = "lib",
@@ -84,6 +90,8 @@ rust_library(
     deps = [
         ":log_build_script",
         "@raze__cfg_if__1_0_0//:cfg_if",
+        "@raze__serde__1_0_126//:serde",
+        "@raze__value_bag__1_0_0_alpha_7//:value_bag",
     ],
 )
 

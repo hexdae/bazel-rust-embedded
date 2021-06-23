@@ -1,0 +1,95 @@
+"""
+@generated
+cargo-raze crate build file.
+
+DO NOT EDIT! Replaced on runs of cargo-raze
+"""
+
+# buildifier: disable=load
+load("@bazel_skylib//lib:selects.bzl", "selects")
+
+# buildifier: disable=load
+load(
+    "@rules_rust//rust:rust.bzl",
+    "rust_binary",
+    "rust_library",
+    "rust_test",
+)
+
+package(default_visibility = [
+    # Public for visibility by "@raze__crate__version//" targets.
+    #
+    # Prefer access through "//crates", which limits external
+    # visibility to explicit Cargo.toml dependencies.
+    "//visibility:public",
+])
+
+licenses([
+    "notice",  # MIT from expression "MIT"
+])
+
+# Generated Targets
+
+# Unsupported target "event-match-modifiers" with type "example" omitted
+
+# Unsupported target "event-poll-read" with type "example" omitted
+
+# Unsupported target "event-read" with type "example" omitted
+
+# Unsupported target "event-read-char-line" with type "example" omitted
+
+# Unsupported target "event-stream-async-std" with type "example" omitted
+
+# Unsupported target "event-stream-tokio" with type "example" omitted
+
+# Unsupported target "is_tty" with type "example" omitted
+
+# Unsupported target "stderr" with type "example" omitted
+
+rust_library(
+    name = "crossterm",
+    srcs = glob(["**/*.rs"]),
+    aliases = {
+    },
+    crate_features = [
+        "default",
+    ],
+    crate_root = "src/lib.rs",
+    crate_type = "lib",
+    data = [],
+    edition = "2018",
+    rustc_flags = [
+        "--cap-lints=allow",
+    ],
+    tags = [
+        "cargo-raze",
+        "manual",
+    ],
+    version = "0.17.7",
+    # buildifier: leave-alone
+    deps = [
+        "@raze__bitflags__1_2_1//:bitflags",
+        "@raze__lazy_static__1_4_0//:lazy_static",
+        "@raze__parking_lot__0_10_2//:parking_lot",
+    ] + selects.with_or({
+        # cfg(unix)
+        (
+            "@rules_rust//rust/platform:x86_64-apple-darwin",
+            "@rules_rust//rust/platform:x86_64-unknown-linux-gnu",
+        ): [
+            "@raze__libc__0_2_97//:libc",
+            "@raze__mio__0_7_13//:mio",
+            "@raze__signal_hook__0_1_17//:signal_hook",
+        ],
+        "//conditions:default": [],
+    }) + selects.with_or({
+        # cfg(windows)
+        (
+            "@rules_rust//rust/platform:x86_64-pc-windows-msvc",
+        ): [
+            "@raze__crossterm_winapi__0_6_2//:crossterm_winapi",
+            "@raze__winapi__0_3_9//:winapi",
+        ],
+        "//conditions:default": [],
+    }),
+)

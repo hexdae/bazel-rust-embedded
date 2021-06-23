@@ -1,0 +1,115 @@
+"""
+@generated
+cargo-raze crate build file.
+
+DO NOT EDIT! Replaced on runs of cargo-raze
+"""
+
+# buildifier: disable=load
+load("@bazel_skylib//lib:selects.bzl", "selects")
+
+# buildifier: disable=load
+load(
+    "@rules_rust//rust:rust.bzl",
+    "rust_binary",
+    "rust_library",
+    "rust_test",
+)
+
+package(default_visibility = [
+    # Public for visibility by "@raze__crate__version//" targets.
+    #
+    # Prefer access through "//crates", which limits external
+    # visibility to explicit Cargo.toml dependencies.
+    "//visibility:public",
+])
+
+licenses([
+    "notice",  # MIT from expression "MIT"
+])
+
+# Generated Targets
+
+# Unsupported target "barchart" with type "example" omitted
+
+# Unsupported target "block" with type "example" omitted
+
+# Unsupported target "canvas" with type "example" omitted
+
+# Unsupported target "chart" with type "example" omitted
+
+# Unsupported target "crossterm_demo" with type "example" omitted
+
+# Unsupported target "curses_demo" with type "example" omitted
+
+# Unsupported target "custom_widget" with type "example" omitted
+
+# Unsupported target "gauge" with type "example" omitted
+
+# Unsupported target "layout" with type "example" omitted
+
+# Unsupported target "list" with type "example" omitted
+
+# Unsupported target "paragraph" with type "example" omitted
+
+# Unsupported target "popup" with type "example" omitted
+
+# Unsupported target "rustbox_demo" with type "example" omitted
+
+# Unsupported target "sparkline" with type "example" omitted
+
+# Unsupported target "table" with type "example" omitted
+
+# Unsupported target "tabs" with type "example" omitted
+
+# Unsupported target "termion_demo" with type "example" omitted
+
+# Unsupported target "user_input" with type "example" omitted
+
+rust_library(
+    name = "tui",
+    srcs = glob(["**/*.rs"]),
+    crate_features = [
+        "crossterm",
+    ],
+    crate_root = "src/lib.rs",
+    crate_type = "lib",
+    data = [],
+    edition = "2018",
+    rustc_flags = [
+        "--cap-lints=allow",
+    ],
+    tags = [
+        "cargo-raze",
+        "manual",
+    ],
+    version = "0.12.0",
+    # buildifier: leave-alone
+    deps = [
+        "@raze__bitflags__1_2_1//:bitflags",
+        "@raze__cassowary__0_3_0//:cassowary",
+        "@raze__crossterm__0_17_7//:crossterm",
+        "@raze__unicode_segmentation__1_7_1//:unicode_segmentation",
+        "@raze__unicode_width__0_1_8//:unicode_width",
+    ],
+)
+
+# Unsupported target "backend_termion" with type "test" omitted
+
+# Unsupported target "terminal" with type "test" omitted
+
+# Unsupported target "widgets_barchart" with type "test" omitted
+
+# Unsupported target "widgets_block" with type "test" omitted
+
+# Unsupported target "widgets_chart" with type "test" omitted
+
+# Unsupported target "widgets_gauge" with type "test" omitted
+
+# Unsupported target "widgets_list" with type "test" omitted
+
+# Unsupported target "widgets_paragraph" with type "test" omitted
+
+# Unsupported target "widgets_table" with type "test" omitted
+
+# Unsupported target "widgets_tabs" with type "test" omitted

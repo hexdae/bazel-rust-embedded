@@ -11,3 +11,6 @@ At the moment, `probe-rs` has some filename issues that have been fixed in
 
 As soon as these fixes make their way into the version of the crate used by
 `cargo-flash` we should be able to completely remove the source.
+
+## `cargo-embed.patch`
+Patch to add absolute path resolution for config files and artifacts
