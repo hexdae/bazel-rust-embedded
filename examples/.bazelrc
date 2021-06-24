@@ -1,0 +1,2 @@
+build --crosstool_top=@arm_none_eabi//toolchain
+build --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
