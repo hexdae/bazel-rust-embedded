@@ -17,7 +17,7 @@ def cargo_flash(name, file, chip, bin=False):
     file_type = "bin" if bin else "elf"
     tool = "@rust_embedded//:cargo-flash"
     cmd = """
-        echo "$(locations {}) --chip {} --{} $(location {})" > $@
+        echo "$(execpath {}) --chip {} --{} $(execpath {})" > $@
     """.format(tool, chip, file_type, file)
 
     native.genrule(
@@ -45,11 +45,11 @@ def cargo_embed(name, file, chip, custom_config=None):
     """
     srcs = [file]
     tool = "@rust_embedded//:cargo-embed"
-    cmd = "$(locations {}) --chip {} --artifact-path $(locations {})".format(tool, chip, file)
+    cmd = "$(execpath {}) --chip {} --artifact-path $(execpath {})".format(tool, chip, file)
 
     if custom_config:
         srcs.append(custom_config)
-        cmd += " --custom-config $(locations {})".format(custom_config)
+        cmd += " --custom-config $(execpath {})".format(custom_config)
 
     native.genrule(
         name = name,

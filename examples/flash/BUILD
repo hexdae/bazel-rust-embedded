@@ -20,7 +20,7 @@ cc_binary(
     ],
     linkopts = [
         "-nostdlib",
-        "-T $(locations :linker)"
+        "-T $(execpath :linker)"
     ],
 )
 
