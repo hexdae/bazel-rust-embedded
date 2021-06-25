@@ -30,6 +30,53 @@ def cargo_flash(name, file, chip, bin=False):
     )
 
 
+def cargo_embed_config(
+        name,
+        protocol="Swd",
+        flash="true",
+        reset="true",
+        halt="true",
+        log_level ="ERROR",
+        gdb_enabled = "false",
+        gdb_connection_string="0.0.0.0:3333",
+    ):
+    """ generate a custom cargo-embed config
+
+    Args:
+        name: the config label
+        protocol: [Swd|Jtag]
+        flash: [true|false]
+        reset: [true|false]
+        halt: [true|false]
+        log_level: [OFF|ERROR|WARN|DEBUG]
+        gdb_enabled: [true|false]
+        gdb_connection_string: the server address
+    """
+    config = """
+        [default.probe]
+        protocol = \\"{}\\"
+
+        [default.flashing]
+        enabled = {}
+
+        [default.reset]
+        enabled = {}
+        halt_afterwards = {}
+
+        [default.general]
+        log_level = \\"{}\\"
+
+        [default.gdb]
+        enabled = {}
+        gdb_connection_string = \\"{}\\"
+    """.format(protocol, flash, reset, halt, log_level, gdb_enabled, gdb_connection_string)
+
+    native.genrule(
+        name = name,
+        outs = ["custom.embed.toml"],
+        cmd = """echo "{}" > $@""".format(config),
+    )
+
 
 def cargo_embed(name, file, chip, custom_config=None):
     """Use cargo-embed with a custom config

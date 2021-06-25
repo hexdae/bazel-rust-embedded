@@ -1,5 +1,5 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary")
-load("@rust_embedded//:rules.bzl", "cargo_embed")
+load("@rust_embedded//:rules.bzl", "cargo_embed_config", "cargo_embed")
 
 alias(
     name = "linker",
@@ -24,9 +24,15 @@ cc_binary(
     ],
 )
 
+cargo_embed_config(
+    name = "config",
+    gdb_enabled = "true",
+    gdb_connection_string = "0.0.0.0:3333",
+)
+
 cargo_embed(
-    name = "debug",
+    name = "gdb-server",
     file = ":firmware",
     chip = "STM32F103C8",
-    custom_config = ".embed.toml"
+    custom_config = ":config"
 )
