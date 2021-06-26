@@ -1,0 +1,31 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+#############################################################################################
+# Toolchain: arm-none-eabi-gcc v1.1.
+http_archive(
+    name = "arm_none_eabi",
+    sha256 = "3d3728cbe88b08c12cd2cb89afcff9294bd77be958c78188db77fdc8ab7e7a5d",
+    strip_prefix = "bazel-arm-none-eabi-1.1",
+    url = "https://github.com/d-asnaghi/bazel-arm-none-eabi/archive/v1.1.tar.gz",
+)
+
+load("@arm_none_eabi//:deps.bzl", "arm_none_eabi_deps")
+
+arm_none_eabi_deps()
+#############################################################################################
+
+#############################################################################################
+# Rust embedded tools
+local_repository(
+    name = "rust_embedded",
+    path = "..",
+)
+
+load("@rust_embedded//:repositories.bzl", "rust_embedded_repositories")
+
+rust_embedded_repositories()
+
+load("@rust_embedded//:deps.bzl", "rust_embedded_deps")
+
+rust_embedded_deps()
+#############################################################################################
