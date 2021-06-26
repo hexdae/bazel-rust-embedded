@@ -112,12 +112,12 @@ def gdb_server(name, file, chip, log_level="ERROR", address="0.0.0.0", port="333
     """ Launch a gdb server using cargo embed
 
     Args:
-        name:
-        file:
-        chip:
-        log_level:
-        address:
-        port:
+        name: the name of the console target
+        file: binary to debug
+        chip: chip setting of cargo embed
+        log_level: log level of cargo embed
+        address: IP address of the GDB server
+        port: Port of the GDB serverV
     """
     config = name + "_config"
 
@@ -141,12 +141,12 @@ def gdb_console(name, file, gdb, chip, log_level="ERROR", address="0.0.0.0", por
 
     Args:
         name: the name of the console target
-        file:
-        gdb:
-        chip:
-        log_level:
-        address:
-        port:
+        file: binary to debug
+        gdb: label to the gdb file binary
+        chip: chip setting of cargo embed
+        log_level: log level of cargo embed
+        address: IP address of the GDB server
+        port: Port of the GDB serverV
     """
     server = name + "_gdb_server"
     gdb_wrapper = name + "_gdb_wrapper"
@@ -186,7 +186,7 @@ def gdb_console(name, file, gdb, chip, log_level="ERROR", address="0.0.0.0", por
 
     trap 'killall cargo_bin_cargo_embed' EXIT SIGINT SIGTERM SIGHUP
 
-    bash -c \\"{}\\"&
+    bash -c \\"{}\\" 2> /dev/null &
 
     bash -c \\"{} {}\\"
 
