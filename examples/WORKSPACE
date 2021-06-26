@@ -1,12 +1,12 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 #############################################################################################
-# Toolchain: arm-none-eabi-gcc v1.1.
+# Toolchain: arm-none-eabi-gcc v1.2.0.
 http_archive(
     name = "arm_none_eabi",
-    sha256 = "3d3728cbe88b08c12cd2cb89afcff9294bd77be958c78188db77fdc8ab7e7a5d",
-    strip_prefix = "bazel-arm-none-eabi-1.1",
-    url = "https://github.com/d-asnaghi/bazel-arm-none-eabi/archive/v1.1.tar.gz",
+    url = "https://github.com/d-asnaghi/bazel-arm-none-eabi/archive/v1.2.0.tar.gz",
+    sha256 = "34487973fd09f655a0b4531fb48cec5795bec303de30223aef43606b01fcb161",
+    strip_prefix = "bazel-arm-none-eabi-1.2.0"
 )
 
 load("@arm_none_eabi//:deps.bzl", "arm_none_eabi_deps")
