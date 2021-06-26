@@ -28,5 +28,8 @@ gdb_console(
     name = "gdb-console",
     file = ":firmware",
     chip = "STM32F103C8",
-    gdb = "@arm_none_eabi//:gdb"
+    gdb = "@arm_none_eabi//:gdb",
+    gdb_commands = [
+        "b main",
+    ]
 )
