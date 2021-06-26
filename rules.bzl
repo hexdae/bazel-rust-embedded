@@ -73,7 +73,7 @@ def cargo_embed_config(
 
     native.genrule(
         name = name,
-        outs = ["custom.embed.toml"],
+        outs = [name + ".toml"],
         cmd = """echo "{}" > $@""".format(config),
     )
 
@@ -105,4 +105,101 @@ def cargo_embed(name, file, chip, custom_config=None):
         executable = True,
         tools = [tool],
         cmd = """echo "{}" > $@""".format(cmd),
+    )
+
+
+def gdb_server(name, file, chip, log_level="ERROR", address="0.0.0.0", port="3333"):
+    """ Launch a gdb server using cargo embed
+
+    Args:
+        name:
+        file:
+        chip:
+        log_level:
+        address:
+        port:
+    """
+    config = name + "_config"
+
+    cargo_embed_config(
+        name = config,
+        gdb_enabled = "true",
+        gdb_connection_string = "{}:{}".format(address, port),
+        log_level = log_level,
+    )
+
+    cargo_embed(
+        name = name,
+        file = file,
+        chip = chip,
+        custom_config = config,
+    )
+
+
+def gdb_console(name, file, gdb, chip, log_level="ERROR", address="0.0.0.0", port="3333"):
+    """ Launch a gdb console using a custom gdb executable
+
+    Args:
+        name: the name of the console target
+        file:
+        gdb:
+        chip:
+        log_level:
+        address:
+        port:
+    """
+    server = name + "_gdb_server"
+    gdb_wrapper = name + "_gdb_wrapper"
+    config = name + "_config"
+
+    gdb_server(
+        name = server,
+        file = file,
+        chip = chip,
+        address = address,
+        port = port,
+        log_level = log_level,
+    )
+
+    # Wrapper needed to ensure a file is available at runtime
+    native.sh_binary(
+        name = gdb_wrapper,
+        srcs = ["@rust_embedded//scripts:runtime.sh"],
+        args = ["$(execpath {})".format(gdb)],
+        data = [gdb],
+        deps = ["@bazel_tools//tools/bash/runfiles"],
+    )
+
+    gdb_server_bin = "$(execpath {})".format(server)
+    gdb_bin = "$(execpath {}) $(execpath {})".format(gdb_wrapper, gdb)
+    gdb_args = "-q"
+    gdb_additional_commands = [
+        "file $(execpath {})".format(file),
+        "set mem inaccessible-by-default off",
+        "target extended-remote {}:{}".format(address, port),
+    ]
+    for gdb_command in gdb_additional_commands:
+        gdb_args += " -ex=\\'{}\\'".format(gdb_command)
+
+
+    cmd = """
+    #! /usr/bin/env bash
+
+    set -euo pipefail
+
+    trap 'killall cargo_bin_cargo_embed' EXIT SIGINT SIGTERM SIGHUP
+
+    bash -c \\"{}\\"&
+
+    bash -c \\"{} {}\\"
+
+    """.format(gdb_server_bin, gdb_bin, gdb_args)
+
+    native.genrule(
+        name = name,
+        srcs = [server, file],
+        outs = [name + "-gdb-console.sh"],
+        tools = [gdb_wrapper, gdb],
+        cmd = """echo "{}" > $@""".format(cmd),
+        executable = True,
     )

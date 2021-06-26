@@ -1,5 +1,5 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary")
-load("@rust_embedded//:rules.bzl", "gdb_server")
+load("@rust_embedded//:rules.bzl", "gdb_console")
 
 alias(
     name = "linker",
@@ -24,8 +24,9 @@ cc_binary(
     ],
 )
 
-gdb_server(
-    name = "gdb-server",
+gdb_console(
+    name = "gdb-console",
     file = ":firmware",
     chip = "STM32F103C8",
+    gdb = "@arm_none_eabi//:gdb"
 )
