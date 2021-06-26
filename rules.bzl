@@ -1,5 +1,5 @@
 """ Rules """
-
+load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
 
 def cargo_flash(name, file, chip, bin=False):
     """Use cargo-flash to load an elf file onto a chip
@@ -161,17 +161,14 @@ def gdb_console(name, file, gdb, chip, log_level="ERROR", address="0.0.0.0", por
         log_level = log_level,
     )
 
-    # Wrapper needed to ensure a file is available at runtime
-    native.sh_binary(
+    native_binary(
         name = gdb_wrapper,
-        srcs = ["@rust_embedded//scripts:runtime.sh"],
-        args = ["$(execpath {})".format(gdb)],
-        data = [gdb],
-        deps = ["@bazel_tools//tools/bash/runfiles"],
+        src = gdb,
+        out = "gdb",
     )
 
     gdb_server_bin = "$(execpath {})".format(server)
-    gdb_bin = "$(execpath {}) $(execpath {})".format(gdb_wrapper, gdb)
+    gdb_bin = "$(execpath {})".format(gdb_wrapper)
     gdb_args = "-q"
     gdb_additional_commands = [
         "file $(execpath {})".format(file),
@@ -179,7 +176,7 @@ def gdb_console(name, file, gdb, chip, log_level="ERROR", address="0.0.0.0", por
         "target extended-remote {}:{}".format(address, port),
     ]
     for gdb_command in gdb_additional_commands:
-        gdb_args += " -ex=\\'{}\\'".format(gdb_command)
+        gdb_args += " -ex=\'{}\'".format(gdb_command)
 
 
     cmd = """
