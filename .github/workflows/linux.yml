@@ -15,4 +15,4 @@ jobs:
       - uses: actions/checkout@v2
       - name: build tools
         run: |
-          bazelisk build //:all
+          sudo apt install -y pkg-config libusb-1.0-0-dev libftdi1-dev && bazelisk build //:all
