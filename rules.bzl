@@ -17,9 +17,16 @@ def cargo_flash(name, file, chip, bin = False):
 
     file_type = "bin" if bin else "elf"
     tool = "@rust_embedded//:cargo-flash"
-    cmd = """
-        echo "$(execpath {}) --chip {} --{} $(execpath {})" > $@
-    """.format(tool, chip, file_type, file)
+    args = [
+        "--chip {}".format(chip),
+        "--{} $(execpath {})".format(file_type, file),
+    ]
+
+    script = """
+    #! /usr/bin/env bash
+    set -euo pipefail
+    bash -c \\"$(execpath {}) {}\\"
+    """.format(tool, " ".join(args))
 
     native.genrule(
         name = name,
@@ -27,7 +34,7 @@ def cargo_flash(name, file, chip, bin = False):
         outs = [name + ".sh"],
         executable = True,
         tools = [tool],
-        cmd = cmd,
+        cmd = """echo "{}" > $@""".format(script),
     )
 
 def cargo_embed_config(
@@ -76,7 +83,7 @@ def cargo_embed_config(
         cmd = """echo "{}" > $@""".format(config),
     )
 
-def cargo_embed(name, file, chip, custom_config = None):
+def cargo_embed(name, file, chip, config = None):
     """Use cargo-embed with a custom config
 
         You can flash the probe, start a gdb server and
@@ -86,15 +93,24 @@ def cargo_embed(name, file, chip, custom_config = None):
         name: the target name as a string
         file: the label to the elf file
         chip: string, the target chip
-        custom_config: the label of a custom config file
+        config: the label of a custom config file
     """
     srcs = [file]
     tool = "@rust_embedded//:cargo-embed"
-    cmd = "$(execpath {}) --chip {} --artifact-path $(execpath {})".format(tool, chip, file)
+    args = [
+        "--chip {}".format(chip),
+        "--artifact-path $(execpath {})".format(file),
+    ]
 
-    if custom_config:
-        srcs.append(custom_config)
-        cmd += " --custom-config $(execpath {})".format(custom_config)
+    if config:
+        srcs.append(config)
+        args.append("--custom-config $(execpath {})".format(config))
+
+    script = """
+    #! /usr/bin/env bash
+    set -euo pipefail
+    bash -c \\"$(execpath {}) {}\\"
+    """.format(tool, " ".join(args))
 
     native.genrule(
         name = name,
@@ -102,7 +118,7 @@ def cargo_embed(name, file, chip, custom_config = None):
         outs = [name + ".sh"],
         executable = True,
         tools = [tool],
-        cmd = """echo "{}" > $@""".format(cmd),
+        cmd = """echo "{}" > $@""".format(script),
     )
 
 def gdb_server(name, file, chip, log_level = "ERROR", address = "0.0.0.0", port = "3333"):
@@ -129,7 +145,7 @@ def gdb_server(name, file, chip, log_level = "ERROR", address = "0.0.0.0", port 
         name = name,
         file = file,
         chip = chip,
-        custom_config = config,
+        config = config,
     )
 
 def gdb_console(name, file, chip, gdb, gdb_args = [], log_level = "ERROR", address = "0.0.0.0", port = "3333"):
@@ -163,7 +179,7 @@ def gdb_console(name, file, chip, gdb, gdb_args = [], log_level = "ERROR", addre
         for key in escape:
             arg.replace(key, escape.get(key))
 
-    gdb_console_script = """
+    script = """
     #! /usr/bin/env bash
     set -euo pipefail
     trap 'killall cargo_bin_cargo_embed' EXIT SIGINT SIGTERM SIGHUP
@@ -191,6 +207,6 @@ def gdb_console(name, file, chip, gdb, gdb_args = [], log_level = "ERROR", addre
         srcs = [server_binary, file],
         outs = [name + "_gdb_console.sh"],
         tools = [gdb_binary],
-        cmd = """echo "{}" > $@""".format(gdb_console_script),
+        cmd = """echo "{}" > $@""".format(script),
         executable = True,
     )
