@@ -20,16 +20,19 @@ cc_binary(
     ],
     linkopts = [
         "-nostdlib",
-        "-T $(execpath :linker)"
+        "-T $(execpath :linker)",
     ],
 )
 
 gdb_console(
     name = "gdb-console",
-    file = ":firmware",
     chip = "STM32F103C8",
+    file = ":firmware",
     gdb = "@arm_none_eabi//:gdb",
-    gdb_commands = [
-        "b main",
-    ]
+    gdb_args = [
+        "-q",
+        "-ex 'file $(execpath :firmware)'",
+        "-ex 'target extended-remote 0.0.0.0:3333'",
+        # "-ex 'b main'",
+    ],
 )
