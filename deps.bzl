@@ -1,4 +1,4 @@
-''' Transitive dependencies for Rust Embedded Tools '''
+""" Transitive dependencies for Rust Embedded Tools """
 
 load("@rust_embedded//crates:crates.bzl", "raze_fetch_remote_crates")
 load("@rules_rust//rust:repositories.bzl", "rust_repositories")
