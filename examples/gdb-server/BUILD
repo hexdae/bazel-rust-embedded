@@ -20,12 +20,12 @@ cc_binary(
     ],
     linkopts = [
         "-nostdlib",
-        "-T $(execpath :linker)"
+        "-T $(execpath :linker)",
     ],
 )
 
 gdb_server(
     name = "gdb-server",
-    file = ":firmware",
     chip = "STM32F103C8",
+    file = ":firmware",
 )
