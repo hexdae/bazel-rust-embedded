@@ -1,7 +1,8 @@
 """ Rules """
+
 load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
 
-def cargo_flash(name, file, chip, bin=False):
+def cargo_flash(name, file, chip, bin = False):
     """Use cargo-flash to load an elf file onto a chip
 
         To find the supported chip targets use the following command
@@ -29,17 +30,15 @@ def cargo_flash(name, file, chip, bin=False):
         cmd = cmd,
     )
 
-
 def cargo_embed_config(
         name,
-        protocol="Swd",
-        flash="true",
-        reset="true",
-        halt="true",
-        log_level ="ERROR",
+        protocol = "Swd",
+        flash = "true",
+        reset = "true",
+        halt = "true",
+        log_level = "ERROR",
         gdb_enabled = "false",
-        gdb_connection_string="0.0.0.0:3333",
-    ):
+        gdb_connection_string = "0.0.0.0:3333"):
     """ generate a custom cargo-embed config
 
     Args:
@@ -77,8 +76,7 @@ def cargo_embed_config(
         cmd = """echo "{}" > $@""".format(config),
     )
 
-
-def cargo_embed(name, file, chip, custom_config=None):
+def cargo_embed(name, file, chip, custom_config = None):
     """Use cargo-embed with a custom config
 
         You can flash the probe, start a gdb server and
@@ -107,8 +105,7 @@ def cargo_embed(name, file, chip, custom_config=None):
         cmd = """echo "{}" > $@""".format(cmd),
     )
 
-
-def gdb_server(name, file, chip, log_level="ERROR", address="0.0.0.0", port="3333"):
+def gdb_server(name, file, chip, log_level = "ERROR", address = "0.0.0.0", port = "3333"):
     """ Launch a gdb server using cargo embed
 
     Args:
@@ -135,8 +132,7 @@ def gdb_server(name, file, chip, log_level="ERROR", address="0.0.0.0", port="333
         custom_config = config,
     )
 
-
-def gdb_console(name, file, chip, gdb, gdb_commands = [], log_level="ERROR", address="0.0.0.0", port="3333"):
+def gdb_console(name, file, chip, gdb, gdb_args = [], log_level = "ERROR", address = "0.0.0.0", port = "3333"):
     """ Launch a gdb console using a custom gdb executable
 
     Args:
@@ -144,7 +140,7 @@ def gdb_console(name, file, chip, gdb, gdb_commands = [], log_level="ERROR", add
         file: binary to debug
         chip: chip setting of cargo embed
         gdb: label to the gdb file binary
-        gdb_commands: additional commands for gdb
+        gdb_args: list of arguments to gdb
         log_level: log level of cargo embed
         address: IP address of the GDB server
         port: Port of the GDB serverV
@@ -152,15 +148,20 @@ def gdb_console(name, file, chip, gdb, gdb_commands = [], log_level="ERROR", add
     config = name + "_config"
     server_binary = name + "_gdb_server"
     gdb_binary = name + "_gdb_binary"
-    gdb_args = "-q"
-    gdb_cmds = [
-        "file $(execpath {})".format(file),
-        "set mem inaccessible-by-default off",
-        "target extended-remote {}:{}".format(address, port),
-    ] + gdb_commands
 
-    for command in gdb_cmds:
-        gdb_args += " -ex=\'{}\'".format(command)
+    gdb_default_args = [
+        "-ex 'file $(execpath {})'".format(file),
+        "-ex 'target extended-remote {}:{}'".format(address, port),
+    ]
+
+    for arg in gdb_default_args:
+        if arg not in gdb_args:
+            gdb_args.append(arg)
+
+    escape = {"\'": "\\'"}
+    for arg in gdb_args:
+        for key in escape:
+            arg.replace(key, escape.get(key))
 
     gdb_console_script = """
     #! /usr/bin/env bash
@@ -168,7 +169,7 @@ def gdb_console(name, file, chip, gdb, gdb_commands = [], log_level="ERROR", add
     trap 'killall cargo_bin_cargo_embed' EXIT SIGINT SIGTERM SIGHUP
     bash -c \\"$(execpath {})\\" 2> /dev/null &
     bash -c \\"$(execpath {}) {}\\"
-    """.format(server_binary, gdb_binary, gdb_args)
+    """.format(server_binary, gdb_binary, " ".join(gdb_args))
 
     gdb_server(
         name = server_binary,
